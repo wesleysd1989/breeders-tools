@@ -5,7 +5,7 @@ import Modal from "react-bootstrap/Modal";
 import { useTranslation } from "react-i18next";
 import Flags from "country-flag-icons/react/3x2";
 
-import { pool_calculaPesoDaPool } from "../../utils";
+// import { pool_calculaPesoDaPool } from "../../utils";
 import api from "../../services/api";
 import i18n from "../../locales";
 import logo from "../../assets/logo.svg";
