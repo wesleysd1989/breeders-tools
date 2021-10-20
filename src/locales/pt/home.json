@@ -7,6 +7,7 @@
   "mining6HRs": "você recebe {{ESB}} a cada 6 horas.",
   "mining24HRs": "você recebe {{ESB}} a cada 1 dia.",
   "mining1Week": "você recebe {{ESB}} a cada 1 semana.",
+  "mining1Month": "você recebe {{ESB}} a cada 1 mês.",
   "close": "fechar",
   "tools": "outras ferramentas",
   "getIDS": "pegar seus IDs para o stake",

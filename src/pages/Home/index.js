@@ -171,6 +171,10 @@ const Home = () => {
           <Modal.Title>{t("result")}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <p>{`total hash power pool: ${hashPowerPool}`}</p>
+          <br />
+          <p>{`hash power pool: ${hashPower}`}</p>
+          <br />
           <p>
             {t("miningHR", {
               ESB: `${(342 / hashPowerPool) * hashPower} ESB`,
@@ -192,6 +196,12 @@ const Home = () => {
           <p>
             {t("mining1Week", {
               ESB: `${(342 / hashPowerPool) * hashPower * 168} ESB`,
+            })}
+          </p>
+          <br />
+          <p>
+            {t("mining1Month", {
+              ESB: `${(342 / hashPowerPool) * hashPower * 720} ESB`,
             })}
           </p>
         </Modal.Body>
