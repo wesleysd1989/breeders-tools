@@ -79,7 +79,8 @@ export const Content = styled.section`
 `;
 
 export const Footer = styled.section`
-  margin-top: 160px;
+  margin-top: 80px;
+  margin-bottom: 32px;
   display: flex;
   flex-direction: column;
   width: 100%;
