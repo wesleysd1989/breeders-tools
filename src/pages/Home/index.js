@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useTranslation } from "react-i18next";
 import Flags from "country-flag-icons/react/3x2";
 
+import { pool_calculaPesoDaPool } from "../../utils";
+import api from "../../services/api";
 import i18n from "../../locales";
 import logo from "../../assets/logo.svg";
 import * as S from "./styles";
@@ -20,6 +22,26 @@ const Home = () => {
     i18n.changeLanguage(lgn);
   };
 
+  const getHashPowerPool = useCallback(async () => {
+    const response = await api.post("/get_table_rows", {
+      json: true,
+      code: "breederspool",
+      scope: "breederspool",
+      table: "pools",
+      lower_bound: null,
+      upper_bound: null,
+      index_position: 1,
+      key_type: "",
+      limit: "200",
+      reverse: false,
+      show_payer: false,
+    });
+    console.log(response.data);
+  }, []);
+
+  useEffect(() => {
+    getHashPowerPool();
+  });
   return (
     <S.Container>
       <S.Language>
