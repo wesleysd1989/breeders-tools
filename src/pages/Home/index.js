@@ -123,8 +123,14 @@ const Home = () => {
         </Modal.Header>
         <Modal.Body>
           <p>
-            {t("mining", {
+            {t("miningHR", {
               ESB: `${(342 / hashPowerPool) * hashPower} ESB`,
+            })}
+          </p>
+          <br />
+          <p>
+            {t("mining6HRs", {
+              ESB: `${(342 / hashPowerPool) * hashPower * 6} ESB`,
             })}
           </p>
         </Modal.Body>

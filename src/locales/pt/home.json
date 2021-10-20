@@ -3,7 +3,8 @@
   "calculator": "calculadora",
   "calculate": "calcular",
   "result": "resultado",
-  "mining": "você recebe {{ESB}} por hora.",
+  "miningHR": "você recebe {{ESB}} por hora.",
+  "mining6HRs": "você recebe {{ESB}} a cada 6 horas.",
   "close": "fechar",
   "tools": "outras ferramentas",
   "getIDS": "pegar seus IDs para o stake"
