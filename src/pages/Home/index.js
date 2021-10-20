@@ -23,15 +23,7 @@ const Home = () => {
   return (
     <S.Container>
       <S.Language>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            width: "100px",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+        <S.LanguageContainer>
           <h1 style={{ color: "#fff", marginBottom: "8px" }}>
             {t("language")}
           </h1>
@@ -49,7 +41,7 @@ const Home = () => {
               <Flags.BR title="Brazil" />
             </div>
           </div>
-        </div>
+        </S.LanguageContainer>
       </S.Language>
       <S.Logo src={logo} alt="logo" />
       <h1 style={{ color: "#fff" }}>breeders tools</h1>

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import media from "styled-media-query";
 
 export const Container = styled.div`
   display: flex;
@@ -22,13 +23,31 @@ export const Container = styled.div`
 `;
 
 export const Language = styled.section`
-  margin-left: 16px;
   margin-top: 8px;
   width: 96%;
+
+  ${media.lessThan("medium")`
+    width: 100%;
+    margin-left: 0;
+    display: flex;
+    justify-content: center;
+  `}
 
   svg {
     cursor: pointer;
   }
+`;
+
+export const LanguageContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+  justify-content: center;
+  align-items: center;
+
+  ${media.lessThan("small")`
+    width: 100%;
+  `}
 `;
 
 export const Logo = styled.img`
@@ -42,6 +61,10 @@ export const Content = styled.section`
   justify-content: center;
   min-width: 50%;
   margin-top: 24px;
+
+  ${media.lessThan("medium")`
+    min-width: 90%;
+  `}
 
   .input-style {
     border-radius: 4px;
