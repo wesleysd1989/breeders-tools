@@ -98,6 +98,25 @@ const Home = () => {
           </Card.Body>
         </Card>
       </S.Content>
+      <S.Footer>
+        <h2 style={{ color: "#fff" }}>© 2021 BREEDERS TOOLS</h2>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            width: "100%",
+            marginTop: "8px",
+          }}
+        >
+          {t("tools")}:
+          <a
+            href="https://nf.tools/breeders/ids"
+            style={{ color: "#1eff36", marginLeft: "16px" }}
+          >
+            {t("getIDS")}
+          </a>
+        </div>
+      </S.Footer>
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>{t("result")}</Modal.Title>

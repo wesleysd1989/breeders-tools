@@ -77,3 +77,12 @@ export const Content = styled.section`
     border: 1px solid #1eff36;
   }
 `;
+
+export const Footer = styled.section`
+  margin-top: 160px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
+  color: #ffffff;
+`;

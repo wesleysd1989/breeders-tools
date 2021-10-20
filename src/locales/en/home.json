@@ -4,5 +4,7 @@
   "calculate": "calculate",
   "result": "result",
   "mining": "you get {{ESB}} per hour.",
-  "close": "close"
+  "close": "close",
+  "tools": "other tools",
+  "getIDS": "get your IDs to stake"
 }

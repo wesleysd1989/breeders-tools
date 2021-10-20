@@ -4,5 +4,7 @@
   "calculate": "calcular",
   "result": "resultado",
   "mining": "você recebe {{ESB}} por hora.",
-  "close": "fechar"
+  "close": "fechar",
+  "tools": "outras ferramentas",
+  "getIDS": "pegar seus IDs para o stake"
 }
