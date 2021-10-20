@@ -1,11 +1,12 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useTranslation } from "react-i18next";
 import Flags from "country-flag-icons/react/3x2";
+import Spinner from "react-bootstrap/Spinner";
 
-// import { pool_calculaPesoDaPool } from "../../utils";
+import { pool_calculaPesoDaPool, pool_calculaPesoDoUser } from "../../utils";
 import api from "../../services/api";
 import i18n from "../../locales";
 import logo from "../../assets/logo.svg";
@@ -17,31 +18,66 @@ const Home = () => {
   const [hashPowerPool, setHashPowerPool] = useState("");
   const [hashPower, setHashPower] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [showModalError, setShowModalError] = useState(false);
+  const [wallet, setWallet] = useState("");
+  const [load, setLoad] = useState(false);
 
   const changeLanguage = (lgn) => {
     i18n.changeLanguage(lgn);
   };
 
-  const getHashPowerPool = useCallback(async () => {
-    const response = await api.post("/get_table_rows", {
-      json: true,
-      code: "breederspool",
-      scope: "breederspool",
-      table: "pools",
-      lower_bound: null,
-      upper_bound: null,
-      index_position: 1,
-      key_type: "",
-      limit: "200",
-      reverse: false,
-      show_payer: false,
-    });
-    console.log(response.data);
-  }, []);
+  const getHashPowerAndCalcule = useCallback(async () => {
+    try {
+      setLoad(true);
+      const responsePool = await api.post("/get_table_rows", {
+        json: true,
+        code: "breederspool",
+        scope: "breederspool",
+        table: "pools",
+        lower_bound: null,
+        upper_bound: null,
+        index_position: 1,
+        key_type: "",
+        limit: "200",
+        reverse: false,
+        show_payer: false,
+      });
+      const hashPowerTotal = pool_calculaPesoDaPool(
+        responsePool.data.rows[0].rarities,
+        responsePool.data.rows[0].rarities_total
+      );
+      setHashPowerPool(hashPowerTotal);
+      const responseWallet = await api.post("/get_table_rows", {
+        json: true,
+        code: "breederspool",
+        scope: "breederspool",
+        table: "users",
+        lower_bound: wallet,
+        upper_bound: wallet,
+        index_position: 1,
+        key_type: "",
+        limit: "9000",
+        reverse: false,
+        show_payer: false,
+      });
+      const dados = responseWallet.data.rows.filter((u) => {
+        return u.username === wallet;
+      });
+      const hashPowerUser = pool_calculaPesoDoUser(
+        dados[0].data[0].rarities,
+        responsePool.data.rows[0].rarities
+      );
+      setHashPower(hashPowerUser);
+      console.log(hashPowerUser);
+    } catch (error) {
+      setLoad(false);
+      setShowModalError(true);
+    } finally {
+      setLoad(false);
+      setShowModal(true);
+    }
+  }, [wallet]);
 
-  useEffect(() => {
-    getHashPowerPool();
-  });
   return (
     <S.Container>
       <S.Language>
@@ -65,61 +101,52 @@ const Home = () => {
           </div>
         </S.LanguageContainer>
       </S.Language>
-      <S.Logo src={logo} alt="logo" />
-      <h1 style={{ color: "#fff" }}>breeders tools</h1>
-      <S.Content>
-        <Card>
-          <Card.Header>{t("calculator")}</Card.Header>
-          <Card.Body>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <label style={{ color: "#fff", marginBottom: "8px" }}>
-                hash power pool
-              </label>
-              <input
-                type="text"
-                className="input-style"
-                value={hashPowerPool}
-                onChange={(e) => {
-                  const re = /^[0-9\b]+$/;
-                  if (e.target.value === "" || re.test(e.target.value)) {
-                    setHashPowerPool(e.target.value);
-                  }
-                }}
-              />
-            </div>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <label
-                style={{ color: "#fff", marginTop: "8px", marginBottom: "8px" }}
-              >
-                hash power
-              </label>
-              <input
-                type="text"
-                className="input-style"
-                value={hashPower}
-                onChange={(e) => {
-                  const re = /^[0-9\b]+$/;
-                  if (e.target.value === "" || re.test(e.target.value)) {
-                    setHashPower(e.target.value);
-                  }
-                }}
-              />
-            </div>
-            <div
-              className="d-grid gap-2"
-              style={{
-                display: "flex",
-                marginTop: "8px",
-                width: "100%",
-              }}
-            >
-              <Button variant="success" onClick={() => setShowModal(true)}>
-                {t("calculate")}
-              </Button>
-            </div>
-          </Card.Body>
-        </Card>
-      </S.Content>
+      {!load && (
+        <>
+          <S.Logo src={logo} alt="logo" />
+          <h1 style={{ color: "#fff" }}>breeders tools</h1>
+          <S.Content>
+            <Card>
+              <Card.Header>{t("calculator")}</Card.Header>
+              <Card.Body>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label style={{ color: "#fff", marginBottom: "8px" }}>
+                    Wallet
+                  </label>
+                  <input
+                    type="text"
+                    className="input-style"
+                    value={wallet}
+                    onChange={(e) => {
+                      setWallet(e.target.value);
+                    }}
+                  />
+                </div>
+                <div
+                  className="d-grid gap-2"
+                  style={{
+                    display: "flex",
+                    marginTop: "8px",
+                    width: "100%",
+                  }}
+                >
+                  <Button
+                    variant="success"
+                    onClick={() => getHashPowerAndCalcule()}
+                  >
+                    {t("calculate")}
+                  </Button>
+                </div>
+              </Card.Body>
+            </Card>
+          </S.Content>
+        </>
+      )}
+      {load && (
+        <div style={{ marginTop: "30.5%" }}>
+          <Spinner animation="border" role="status" variant="light" />
+        </div>
+      )}
       <S.Footer>
         <h2 style={{ color: "#fff" }}>© 2021 BREEDERS TOOLS</h2>
         <div
@@ -155,10 +182,35 @@ const Home = () => {
               ESB: `${(342 / hashPowerPool) * hashPower * 6} ESB`,
             })}
           </p>
+          <br />
+          <p>
+            {t("mining24HRs", {
+              ESB: `${(342 / hashPowerPool) * hashPower * 24} ESB`,
+            })}
+          </p>
+          <br />
+          <p>
+            {t("mining1Week", {
+              ESB: `${(342 / hashPowerPool) * hashPower * 168} ESB`,
+            })}
+          </p>
         </Modal.Body>
-
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowModal(false)}>
+            {t("close")}
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showModalError} onHide={() => setShowModalError(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>{t("erro")}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>{t("errormsg")}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModalError(false)}>
             {t("close")}
           </Button>
         </Modal.Footer>

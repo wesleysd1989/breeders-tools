@@ -5,7 +5,11 @@
   "result": "result",
   "miningHR": "you get {{ESB}} per hour.",
   "mining6HRs": "you get {{ESB}} every 6 hours.",
+  "mining24HRs": "you get {{ESB}} every day.",
+  "mining1Week": "you get {{ESB}} every week.",
   "close": "close",
   "tools": "other tools",
-  "getIDS": "get your IDs to stake"
+  "getIDS": "get your IDs to stake",
+  "error": "error",
+  "errormsg": "error when requesting information, please try again later."
 }
