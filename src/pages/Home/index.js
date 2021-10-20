@@ -68,7 +68,6 @@ const Home = () => {
         responsePool.data.rows[0].rarities
       );
       setHashPower(hashPowerUser);
-      console.log(hashPowerUser);
     } catch (error) {
       setLoad(false);
       setShowModalError(true);
