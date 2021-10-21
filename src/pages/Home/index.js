@@ -12,6 +12,8 @@ import i18n from "../../locales";
 import logo from "../../assets/logo.svg";
 import * as S from "./styles";
 
+const suplayPerHour = 341.99;
+
 const Home = () => {
   const { t } = useTranslation("home");
 
@@ -176,31 +178,31 @@ const Home = () => {
           <br />
           <p>
             {t("miningHR", {
-              ESB: `${(342 / hashPowerPool) * hashPower} ESB`,
+              ESB: `${(suplayPerHour / hashPowerPool) * hashPower} ESB`,
             })}
           </p>
           <br />
           <p>
             {t("mining6HRs", {
-              ESB: `${(342 / hashPowerPool) * hashPower * 6} ESB`,
+              ESB: `${(suplayPerHour / hashPowerPool) * hashPower * 6} ESB`,
             })}
           </p>
           <br />
           <p>
             {t("mining24HRs", {
-              ESB: `${(342 / hashPowerPool) * hashPower * 24} ESB`,
+              ESB: `${(suplayPerHour / hashPowerPool) * hashPower * 24} ESB`,
             })}
           </p>
           <br />
           <p>
             {t("mining1Week", {
-              ESB: `${(342 / hashPowerPool) * hashPower * 168} ESB`,
+              ESB: `${(suplayPerHour / hashPowerPool) * hashPower * 168} ESB`,
             })}
           </p>
           <br />
           <p>
             {t("mining1Month", {
-              ESB: `${(342 / hashPowerPool) * hashPower * 720} ESB`,
+              ESB: `${(suplayPerHour / hashPowerPool) * hashPower * 720} ESB`,
             })}
           </p>
         </Modal.Body>
