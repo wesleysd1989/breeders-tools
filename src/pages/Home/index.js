@@ -12,7 +12,7 @@ import i18n from "../../locales";
 import logo from "../../assets/logo.svg";
 import * as S from "./styles";
 
-const suplayPerHour = 341.99;
+const suplayPerHour = 171;
 
 const Home = () => {
   const { t } = useTranslation("home");
